@@ -84,9 +84,7 @@ void *threadA_routine(struct_threadA_info *data)
 	   sem_wait(data->sem_write_pipe);	/*    wait until write pipe is available*/
 		if(readLineFromFile(data->fp, buffer) == -1) /* if any end of file reached or any errors occurs
 		terminate all threads */
-		{
 			terminateAllThreads();
-		}
 		createPipe(fd); /* create pipe */
 		writeToPipe(fd[WRITE_END], buffer);		
 		printf("Writing to Pipe: %s", buffer);
@@ -116,17 +114,14 @@ void *threadC_routine(struct_threadC_info *data)
 		/* check line from buffer and discard any line from the file header region */
 		{
 			puts("File header detected - line discarded");
-		   fileHeaderCheck = 0;
+		   	fileHeaderCheck = 0;
 		}
 		else {
 			if(fileHeaderCheck == 0) /*write line to file if it is in the content region */
-			{
 				writeToFile(data->fp1, data->buffer1);
-			}
 			else
 				puts("File header region detected - line discarded");
 		}		
-		
 		puts("----------------------------------------------------------------");
 		sem_post(data->sem_write_pipe); /* relinquish access to write pipe */
 	}	

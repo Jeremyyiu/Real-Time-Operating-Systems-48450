@@ -148,22 +148,22 @@ int assignment2(void)
 	FILE *fp0;
 	FILE *fp1;
 	
-	char buf1[BUFFER_SIZE];
+	char buf1[BUFFER_SIZE] = {};
 	
 	if(initialiseData() == -1) /* initialise semaphores */
-		return -1;
+		return(EXIT_FAILURE);
 
 	fp0 = fopen("data.txt","r"); /* open data.txt to read */
 	if(!fp0)
 	{
 		perror("Error opening file");
-		return(-1);
+		return(EXIT_FAILURE);
 	}
 	
 	fp1 = fopen("src.txt","w"); /* open src.txt to write */
 	if(!fp1) {
 		perror("Error opening file");
-		return(-1);
+		return(EXIT_FAILURE);
 	}
 	
 	/* put values into structs so that they can be passed to the threads */
@@ -177,7 +177,7 @@ int assignment2(void)
 		pthread_create(&threadC, NULL, (void *) threadC_routine, &c) != 0)		
 	{
 		perror("pthread_create");
-		return -1;
+		return(EXIT_FAILURE);
 	}
 
 	pthread_join(threadA, NULL); /* to identify if the thread-termination was completed */
@@ -205,7 +205,7 @@ int initialiseData(void) /* initialise semaphores - print error if unsuccessful 
 		sem_init(&sem_justify, 0, 0) == -1)
 		{
 			printf("sem_init failed: %s\n", strerror(errno));
-			return -1;
+			return(EXIT_FAILURE);
 		}
 	return 0;
 }

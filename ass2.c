@@ -78,7 +78,7 @@ void *threadC_routine(struct_threadC_info * data);
 
 void *threadA_routine(struct_threadA_info *data)
 {
-	char buffer[BUFFER_SIZE];
+	char buffer[BUFFER_SIZE] = {};
 	for(;;)
 	{	
 	   sem_wait(data->sem_write_pipe);	/*    wait until write pipe is available*/

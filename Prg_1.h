@@ -8,20 +8,20 @@ typedef struct {
 	int burstTime;
 	int waitTime;
 	int remainingTime;
-	int turnAroundTime;	 
+	int turnAroundTime;
 } struct_process_info;
 
 typedef struct Node_t {
-    struct_process_info *data;
-    struct Node_t *prev;
+	struct_process_info *data;
+	struct Node_t *prev;
 } NODE;
 
 /* the HEAD of the Queue, hold the amount of node's that are in the queue*/
 typedef struct Queue {
-    NODE *head;
-    NODE *tail;
-    int size;
-    int limit;
+	NODE *head;
+	NODE *tail;
+	int size;
+	int limit;
 } Queue;
 
 Queue *ConstructQueue(int limit);
@@ -32,20 +32,20 @@ int isEmpty(Queue* pQueue);
 NODE * front(Queue *pQueue);
 
 typedef struct {
-    sem_t *sem_write_fifo;
-    sem_t *sem_read_fifo;
-    int timeQuantum;
-    int *fifofd;
+	sem_t *sem_write_fifo;
+	sem_t *sem_read_fifo;
+	int timeQuantum;
+	int *fifofd;
 } struct_thread1_info;
 
 typedef struct {
-    sem_t *sem_read_fifo;
-    sem_t *sem_write_fifo;
-    FILE *fp;
-    int *fifofd;
+	sem_t *sem_read_fifo;
+	sem_t *sem_write_fifo;
+	FILE *fp;
+	int *fifofd;
 } struct_thread2_info;
 
-void roundRobin(struct_process_info *processes, int arraySize, int timeQuantum);	
+void roundRobin(struct_process_info *processes, int arraySize, int timeQuantum);
 int writeDataToFile(FILE *f, char *buffer);
 int getNumber(int *number);
 void cleanInput(void);
